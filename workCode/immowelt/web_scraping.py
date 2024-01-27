@@ -1,4 +1,5 @@
 import datetime
+import json
 import requests
 from bs4 import BeautifulSoup
 from time import sleep
@@ -38,6 +39,4 @@ class WebScraper:
         # Проверяем наличие NULL перед добавлением в базу данных
         return linkFlat, titleFlat, locationFlat, wrongPriceFlat, timeUpdate
 
-    # def extra_page_info (self,soup):
-        
-        
+    

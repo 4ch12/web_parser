@@ -32,39 +32,52 @@ with db_handler.connect() as db:
     for po in range(0, sizeRegionStorage):
     # while True:
     # Здесь поместите код, который будет выполняться в каждой итерации цикла
-        pageCount = int(offer_count/20)
-    for p in range(1, pageCount+1):
+       
+        # int(offer_count/20)
+        offer_count = 1
+    for p in range(1, offer_count+1):
             print(p)
             sleep(3)
             url = f"https://www.immowelt.de/suche/{regionStorage[po]}/wohnungen/mieten?d=true&sd=DESC&sf=RELEVANCE&sp={p}"
             print(url)
             page_content = web_scraper.parse_page(url)
             soup = BeautifulSoup(page_content, 'lxml')
-            script = soup.findAll('script')
-           # Проходимся по каждому скрипту
-            for script in scripts:
-                # Получаем текст скрипта
-                script_text = script.text.strip()
-                print(script_text)
-                print("# Получаем текст скрипта")
+            scripts = soup.findAll('script')
 
-                # Проверяем, содержит ли скрипт JSON-структуру
-                if 'application/ld+json' in script_text:
+            script_text = scripts[0].text.strip()
+            print("# Получаем текст скрипта",script_text)
+                        
+            if 'offers' in script_text:
+                json_str = script_text.split('>', 1)[0].split('</script>', 1)[0]
+                print("# Находим JSON-структуру внутри скрипта",json_str)
+                
+                data1 = json.loads(json_str)
+                print("Парсинг JSON-строки",data1)
 
-                    # Найдите JSON-структуру внутри скрипта
-                    json_str = script_text.split('>', 1)[1].split('</script>', 1)[0]
-                    print(" # Найдите JSON-структуру внутри скрипта") 
-
-                    # Парсинг JSON-строки
-                    data1 = json.loads(json_str)
-                    print("Парсинг JSON-строки")
-
-                    # Получение значения "offerCount"
                 if 'offers' in data1 and 'offerCount' in data1['offers']:
                     offer_count = data1['offers']['offerCount']
                     print("Offer Count:", offer_count)
-                            
-        
+                
+                # Получение значения "offerCount"
+                    # data1 = json.loads(json_str)
+                    # print("Парсинг JSON-строки")
+
+
+                # # Проверяем, содержит ли скрипт JSON-структуру
+                # if 'application/ld+json' in scripts[0]:
+
+                #     # Найдите JSON-структуру внутри скрипта
+                #     json_str = scripts[0].split('>', 1)[1].split('</script>', 1)[0]
+                #     print(" # Найдите JSON-структуру внутри скрипта") 
+
+                #     # Парсинг JSON-строки
+                #     data1 = json.loads(json_str)
+                #     print("Парсинг JSON-строки")
+
+                #     # Получение значения "offerCount"
+                #     if 'offers' in data1 and 'offerCount' in data1['offers']:
+                #      offer_count = data1['offers']['offerCount']
+                #      print("Offer Count:", offer_count)
            
             if page_content is None:
                 continue
