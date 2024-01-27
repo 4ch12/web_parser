@@ -21,17 +21,25 @@ class WebScraper:
 
     def extract_flat_data(self, flat):
         sleep(2)
-        linkFlat = flat.find('a', class_="mainSection-88b51 noProject-889ca")
-        titleFlat = flat.find('h2')
-        locationFlat = flat.find('div', class_='IconFact-c55e4').find('span')
-        wrongPriceFlat = flat.find('div', class_='KeyFacts-073db').find('div')
-        
-        
         # Проверяем наличие элементов перед извлечением текста
-        linkFlat = linkFlat.get('href') if linkFlat else 'notFound for linkFlat'
-        titleFlat = titleFlat.get_text(strip=True) if titleFlat else 'notFound for titleFlat'
-        locationFlat = locationFlat.get_text(strip=True) if locationFlat else 'notFound for locationFlat'
-        wrongPriceFlat = wrongPriceFlat.get_text(strip=True) if wrongPriceFlat else 'notFound for wrongPriceFlat'
+        try:
+            linkFlat = flat.find('a', class_="mainSection-88b51 noProject-889ca").get('href')
+        except:
+            linkFlat = 'linkFlat_not_found'
+        try:
+            titleFlat = flat.find('h2').get_text(strip=True)
+        except:
+            titleFlat = 'titleFlat_not_found'
+        try:
+            locationFlat = flat.find('div', class_='IconFact-c55e4').find('span').get_text(strip=True)
+        except:
+            locationFlat = 'locationFlat_not_found'
+        try:
+            wrongPriceFlat = flat.find('div', class_='KeyFacts-073db').find('div').get_text(strip=True)
+        except:
+            wrongPriceFlat = 'wrongPriceFlat_not_found'
+    
+    
         #Время парсинга 
         timeUpdate = datetime.datetime.now()
 

@@ -4,7 +4,7 @@ import sqlite3
 
 class DatabaseHandler:
  
-    def __init__(self, db_name='allFlat.db'):
+    def __init__(self, db_name='allFlat.sql'):
         self.db_name = db_name
 
     def connect(self):
@@ -13,8 +13,8 @@ class DatabaseHandler:
     def create_cursor(self, connection):
         return connection.cursor()
 
-    # def create_table(self, cursor):
-    #     cursor.execute("CREATE TABLE IF NOT EXISTS allFlatsAfterParsoing (linkFlat TEXT, titleFlat TEXT, locationFlat TEXT, truePriceFlat TEXT, timeUpdate DATETIME)")
+    def create_table(self, cursor):
+         cursor.execute("CREATE TABLE IF NOT EXISTS allFlatsAfterParsoing (linkFlat TEXT, titleFlat TEXT, locationFlat TEXT, truePriceFlat TEXT, timeUpdate REAL)")
 
     # def add_time_update_column(self, cursor):
     #     cursor.execute("ALTER TABLE allFlatsAfterParsoing ADD COLUMN timeUpdate TEXT")

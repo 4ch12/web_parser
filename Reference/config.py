@@ -1,3 +1,24 @@
+
+class my_flat:
+    def __init__(self, title, nebencosten,location,kaltmiete,heizkosten):
+        self.title = title
+        self.nebencosten = nebencosten
+        self.location = location
+        self.kaltmiete = kaltmiete
+        self.heizkosten = heizkosten
+
+ 
+  
+
+my_object = my_flat('Super Flat','100','Izehoe','300','50')
+print(my_object.title)  
+print(my_object.nebencosten)
+
+
+
+
+
+
 # # host = "127.0.0.1"
 # # user= "root"
 # # password = "lolkek123"
