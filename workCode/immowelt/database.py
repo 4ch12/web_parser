@@ -4,7 +4,7 @@ import sqlite3
 
 class DatabaseHandler:
  
-    def __init__(self, db_name='allFlat.sql'):
+    def __init__(self, db_name='allFlat.db'):
         self.db_name = db_name
 
     def connect(self):
@@ -14,28 +14,31 @@ class DatabaseHandler:
         return connection.cursor()
 
     def create_table(self, cursor):
-         cursor.execute("CREATE TABLE IF NOT EXISTS allFlatsAfterParsoing (linkFlat TEXT, titleFlat TEXT, locationFlat TEXT, truePriceFlat TEXT, timeUpdate REAL)")
+         cursor.execute("CREATE TABLE IF NOT EXISTS allFlatsAfterParsoing1 (linkFlat TEXT, titleFlat TEXT, locationFlat TEXT, truePriceFlat TEXT, timeUpdate TEXT)")
+         
+    def delete_all_rows(self, cursor):
+        cursor.execute("DELETE FROM allFlatsAfterParsoing1")
 
+    def insert_data(self, cursor, data):
+            cursor.execute("""
+                INSERT INTO allFlatsAfterParsoing1 (linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate)
+                VALUES (?, ?, ?, ?, ?)
+            """, data)
+         
     # def add_time_update_column(self, cursor):
-    #     cursor.execute("ALTER TABLE allFlatsAfterParsoing ADD COLUMN timeUpdate TEXT")
+    #      cursor.execute("ALTER TABLE allFlatsAfterParsoing ADD COLUMN timeUpdate TEXT")
 
-    #  def delete_all_rows(self, cursor):
-    #cursor.execute("DELETE FROM allFlatsAfterParsoing")
+    
+
+#   # Попытка обновления существующей записи
+#     def update_all_rows(self, cursor, data):
+#         cursor.execute('''UPDATE allFlatsAfterParsoing1
+#             SET titleFlat = ?, locationFlat = ?, truePriceFlat = ?, timeUpdate = ?
+#             WHERE linkFlat = ?''', data)
+
+#         if cursor.rowcount == 0:
+#             # Если ни одна запись не была обновлена, то вставляем новую запись
+#             cursor.execute('''INSERT INTO allFlatsAfterParsoing1 (linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate)
+#                             VALUES (?, ?, ?, ?, ?)''', data)
+
   
-
-  # Попытка обновления существующей записи
-    def update_all_rows(self, cursor, data):
-        cursor.execute('''UPDATE allFlatsAfterParsoing
-            SET titleFlat = ?, locationFlat = ?, truePriceFlat = ?, timeUpdate = ?
-            WHERE linkFlat = ?''', data)
-
-        if cursor.rowcount == 0:
-            # Если ни одна запись не была обновлена, то вставляем новую запись
-            cursor.execute('''INSERT INTO allFlatsAfterParsoing (linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate)
-                            VALUES (?, ?, ?, ?, ?)''', data)
-
-    # def insert_data(self, cursor, data):
-    #     cursor.executemany("""
-    #         INSERT INTO allFlatsAfterParsoing (linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate)
-    #         VALUES (?, ?, ?, ?, ?)
-    #     """, data)

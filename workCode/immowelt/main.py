@@ -15,25 +15,29 @@ web_scraper = WebScraper(headers)
 
 with db_handler.connect() as db:
     c = db_handler.create_cursor(db)
+    # Создание табл данных    
+    db_handler.create_table(c)
+    # db.commit() 
+    db_handler.delete_all_rows(c)
+    # db.commit() 
+            
 
-    
-                
     # db_handler.create_table(c)
     # print("create_table") 
     # db_handler.add_time_update_column(c)
     # print("add_time_update_column") 
     # db_handler.delete_all_rows(c)
-    # regionStorage = ["landkreis-steinburg","landkreis-pinneberg","kiel","flensburg",
-    #                 "neumuenster","luebeck-hansestadt","landkreis-stormarn","landkreis-segeberg",
-    #                 "landkreis-schleswig-flensburg","landkreis-rendsburg-eckernfoerde","landkreis-ploen",
-    #                 "landkreis-ostholstein","landkreis-nordfriesland","landkreis-herzogtum-lauenburg",
-    #                 "landkreis-dithmarschen"]
-    regionStorage = ["landkreis-steinburg"]
+    regionStorage = ["landkreis-steinburg","landkreis-pinneberg","kiel","flensburg",
+                    "neumuenster","luebeck-hansestadt","landkreis-stormarn","landkreis-segeberg",
+                    "landkreis-schleswig-flensburg","landkreis-rendsburg-eckernfoerde","landkreis-ploen",
+                    "landkreis-ostholstein","landkreis-nordfriesland","landkreis-herzogtum-lauenburg",
+                    "landkreis-dithmarschen"]
+   
     sizeRegionStorage = len(regionStorage)
     
     
     for po in range(0, sizeRegionStorage):
-        sleep(3)
+        sleep(1)
         url = f"https://www.immowelt.de/suche/{regionStorage[po]}/wohnungen/mieten?d=true&sd=DESC&sf=RELEVANCE&sp=1"
         print(url)
         page_content = web_scraper.parse_page(url)
@@ -74,31 +78,15 @@ with db_handler.connect() as db:
              print(element)
             
             for row in data:
-                linkFlat = row[0]
-                titleFlat = row[1]
-                locationFlat = row[2]
-                truePriceFlat = row[3]
-                timeUpdate = row[4]
-            Newdata = [linkFlat,titleFlat,locationFlat,truePriceFlat, timeUpdate]
-            
-            # Обновление данных     
-            db_handler.update_all_rows(c,Newdata) 
+                linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate = row
+                Newdata = [linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate]
+                
             # Добавление данных
-            # db_handler.insert_data(c,Newdata)
-     
-   
-db.commit()
-    # Закрываем соединение после каждой итерации
+                db_handler.insert_data(c, Newdata)
+                db.commit()   
+            # Обновление данных   
+            # db_handler.update_all_rows(c,Newdata)
+                   
+# Закрываем соединение после каждой итерации       
 db.close()
-
 print("Data successfully inserted into the database.")
-
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 
-# 

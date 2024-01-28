@@ -43,7 +43,12 @@ class WebScraper:
         #Время парсинга 
         timeUpdate = datetime.datetime.now()
 
-
+    #     return {
+    #     'linkFlat': linkFlat,
+    #     'titleFlat': titleFlat,
+    #     'locationFlat': locationFlat,
+    #     'wrongPriceFlat': wrongPriceFlat
+    # }
         # Проверяем наличие NULL перед добавлением в базу данных
         return linkFlat, titleFlat, locationFlat, wrongPriceFlat, timeUpdate
 
