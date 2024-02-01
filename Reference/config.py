@@ -1,4 +1,7 @@
 
+from time import sleep
+
+
 class my_flat:
     def __init__(self, title, nebencosten,location,kaltmiete,heizkosten):
         self.title = title
@@ -13,6 +16,9 @@ class my_flat:
 my_object = my_flat('Super Flat','100','Izehoe','300','50')
 print(my_object.title)  
 print(my_object.nebencosten)
+
+sleep(3)
+
 
 
 

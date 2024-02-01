@@ -1,0 +1,6 @@
+import database
+
+# with db_handler.connect() as db:
+#     c = db_handler.create_cursor(db)
+# rows = cur.fetchall() 
+

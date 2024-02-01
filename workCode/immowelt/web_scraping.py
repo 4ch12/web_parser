@@ -52,4 +52,12 @@ class WebScraper:
         # Проверяем наличие NULL перед добавлением в базу данных
         return linkFlat, titleFlat, locationFlat, wrongPriceFlat, timeUpdate
 
-    
+    # def preise_flat_info(self, prise_flat):
+    #     sleep(2)
+    #     # Проверяем наличие элементов перед извлечением текста
+    #     try:
+    #         Kaltmiete = prise_flat.find('strong', class_="ng-star-inserted").get_text(strip=True)
+    #     except:
+    #         Kaltmiete = 'Kaltmiete_not_found'
+
+    #     return Kaltmiete

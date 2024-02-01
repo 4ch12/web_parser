@@ -24,7 +24,14 @@ class DatabaseHandler:
                 INSERT INTO allFlatsAfterParsoing1 (linkFlat, titleFlat, locationFlat, truePriceFlat, timeUpdate)
                 VALUES (?, ?, ?, ?, ?)
             """, data)
-         
+
+    # def from_db_data(self,cursor):
+    #     cursor.execute('''SELECT * FROM allFlatsAfterParsoing1 
+    #             WHERE   titleFlat = ?, 
+    #                     locationFlat = ?, 
+    #                     truePriceFlat = ?,
+    #                     linkFlat = ?''')
+
     # def add_time_update_column(self, cursor):
     #      cursor.execute("ALTER TABLE allFlatsAfterParsoing ADD COLUMN timeUpdate TEXT")
 

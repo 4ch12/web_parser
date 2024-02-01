@@ -18,9 +18,16 @@ def notification(message):
     bot.send_message(message.chat.id, '<b>Hue</b> <em><u>Help!</u></em>', parse_mode='html')
 
 @bot.message_handler(commands=['info'])
-def notification(message):
-     bot.send_message(message.chat.id,f'Привет! {config.my_flat.my_object.title}')
-   
+def notification1(message):
+    bot.send_message(message.chat.id,
+        f"""Квартира!=> <b>{config.my_object.title}</b>
+Опалення!=><b>{config.my_object.heizkosten}</b>
+Аренда!=><b>{config.my_object.kaltmiete}</b>
+Дод.витратри!=><b>{config.my_object.nebencosten}</b>
+Локація!=><b>{config.my_object.location}</b>""", parse_mode='html')
+
+def test():
+    bot.reply_to(message, f'ID: {message.from_user.id}')
 @bot.message_handler()
 def info(message):
     if message.text.lower() == 'привет':
