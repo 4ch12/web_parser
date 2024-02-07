@@ -1,23 +1,24 @@
-
-from time import sleep
-
-
-class my_flat:
-    def __init__(self, title, nebencosten,location,kaltmiete,heizkosten):
-        self.title = title
+import notification_bot
+class MyFlat:
+    def test(self, city,gesammite, links_flat, nebencosten, heizkosten_value):
+        self.city = city
+        self.gesammite = gesammite
+        self.links_flat = links_flat
         self.nebencosten = nebencosten
-        self.location = location
-        self.kaltmiete = kaltmiete
-        self.heizkosten = heizkosten
+        self.heizkosten_value = heizkosten_value
+    
+    def print_values(self):
+        print("City:", self.city)
+        print("Gesammite:", self.gesammite)
+        print("Links Flat:", self.links_flat)
+        print("Nebenkosten:", self.nebencosten)
+        print("Heizkosten Value:", self.heizkosten_value)
+        notification_bot.notification(self.city, self.gesammite, self.links_flat, self.nebencosten, self.heizkosten_value)
 
- 
-  
+# my_object = MyFlat(city, gesammite, links_flat, nebenkosten, heizkosten_valu)
 
-my_object = my_flat('Super Flat','100','Izehoe','300','50')
-print(my_object.title)  
-print(my_object.nebencosten)
 
-sleep(3)
+# sleep(3)
 
 
 
