@@ -1,3 +1,4 @@
+
 import notification_bot
 class MyFlat:
     def test(self, city,gesammite, links_flat, nebencosten, heizkosten_value):
@@ -15,6 +16,7 @@ class MyFlat:
         print("Heizkosten Value:", self.heizkosten_value)
         notification_bot.notification(self.city, self.gesammite, self.links_flat, self.nebencosten, self.heizkosten_value)
 
+    
 # my_object = MyFlat(city, gesammite, links_flat, nebenkosten, heizkosten_valu)
 
 

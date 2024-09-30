@@ -1,9 +1,7 @@
 import telebot
 
-
-
 # https://www.youtube.com/watch?v=sjq8KSMWxQ4
-bot = telebot.TeleBot('')
+bot = telebot.TeleBot('6761816132:AAH4O7rJqBXhp9WP0-R5GeBeJoJNKTvVSbk')
 chat_id = 294706978
 def notification(city,gesammite,links_flat,heizkosten_value,nebencosten):
 # , gesammite, links_flat,
@@ -14,12 +12,7 @@ Nebenkosten+Kalmite=> <b>{gesammite}</b>
 Опалення!=><b>{heizkosten_value}</b>
 Локація!=><b>{city}</b>
 Дод. витрати!=><b>{nebencosten}</b>""",  parse_mode='html')
-        #            print("City:", )
-        # print("Gesammite:", self.gesammite)
-        # print("Links Flat:", self.links_flat)
-        # print("Nebenkosten:", self.nebencosten)
-        # print("Heizkosten Value:", self.heizkosten_value)
-
+    
 # @bot.message_handler(commands=['site'])
 # def site(message):
 #  bot.reply_to(message, f'ID: {message.from_user.id}')
@@ -50,7 +43,7 @@ Nebenkosten+Kalmite=> <b>{gesammite}</b>
 #     elif(message.text.lower() == 'id'):
 #         bot.reply_to(message, f'ID: {message.from_user.id}')
 
-bot.polling(none_stop=True)
+# bot.polling(none_stop=True)
 
 
 

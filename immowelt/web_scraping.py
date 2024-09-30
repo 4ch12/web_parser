@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 import requests
 from bs4 import BeautifulSoup
 from time import sleep
@@ -23,17 +24,33 @@ class WebScraper:
         sleep(2)
         # Проверяем наличие элементов перед извлечением текста
         try:
-            linkFlat = flat.find('a', class_="mainSection-88b51 noProject-889ca").get('href')
+            linkFlat = flat.find('a', class_="css-xt08q3").get('href')
+            linkFlat = "https://www.immowelt.de"+linkFlat
+            print("linkFlatWEBSCRBER:",linkFlat)
+
         except:
             linkFlat = 'linkFlat_not_found'
         try:
-            titleFlat = flat.find('h2').get_text(strip=True)
+            # Найдем нужный div с атрибутом data-testid="classified-card-mfe-24XZZSY4A58R"
+            # classified_card = flat.find('div', attrs={'data-testid': 'classified-card-mfe-24XZZSY4A58R'})
+
+            # Извлекаем ссылку <a> внутри этого div
+            # titleFlat = flat.find('a', attrs={'data-testid': 'card-mfe-covering-link-testid'}).get_text(strip=True)
+            titleFlat = flat.find('a', class_="css-xt08q3").get('title')
+
+
+            # Получаем значение атрибута title
+            # titleFlat = titleFlat['title']
+            print("titleFlatWEBSCRBER:", titleFlat)
         except:
             titleFlat = 'titleFlat_not_found'
         try:
-            locationFlat = flat.find('div', class_='IconFact-c55e4').find('span').get_text(strip=True)
+            # Получаем адрес квартиры
+            locationFlat = flat.find('div', class_='css-ymsudv', attrs={'data-testid': 'cardmfe-description-box-address'}).get_text(strip=True)
+            print("locationFlatWEBSCRBER:", locationFlat)
         except:
             locationFlat = 'locationFlat_not_found'
+            print("locationFlatWEBSCRBER::", locationFlat)
         try:
             wrongPriceFlat = flat.find('div', class_='KeyFacts-073db').find('div').get_text(strip=True)
         except:
@@ -42,6 +59,7 @@ class WebScraper:
     
         #Время парсинга 
         timeUpdate = datetime.datetime.now()
+        timeUpdate = timeUpdate.strftime('%Y-%m-%d %H:%M:%S')
 
     #     return {
     #     'linkFlat': linkFlat,
@@ -50,7 +68,9 @@ class WebScraper:
     #     'wrongPriceFlat': wrongPriceFlat
     # }
         # Проверяем наличие NULL перед добавлением в базу данных
+        # return linkFlat, titleFlat, locationFlat, wrongPriceFlat, timeUpdate
         return linkFlat, titleFlat, locationFlat, wrongPriceFlat, timeUpdate
+
 
     # def preise_flat_info(self, prise_flat):
     #     sleep(2)
